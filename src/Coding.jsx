@@ -5,12 +5,11 @@ const Coding = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedImageId, setExpandedImageId] = useState(null);
-  const [loading, setLoading] = useState(true); // New state for loading
-  const [error, setError] = useState(null); // New state for error
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const itemsPerPage = 5;
 
-  // Function to fetch coding data
   async function fetchCodingData() {
     try {
       let res = await fetch('https://server2-ten-umber.vercel.app/data');
@@ -18,9 +17,9 @@ const Coding = () => {
       let data = await res.json();
       setCodingData(data);
     } catch (error) {
-      setError(error.message); // Set error message
+      setError(error.message);
     } finally {
-      setLoading(false); // Set loading to false after fetch
+      setLoading(false);
     }
   }
 
@@ -28,36 +27,31 @@ const Coding = () => {
     fetchCodingData();
   }, []);
 
-  // Calculate the total number of pages
   const totalPages = Math.ceil(codingData.length / itemsPerPage);
 
-  // Get the current items based on the current page
   const currentItems = codingData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  // Toggle accordion for each question
   const toggleAccordion = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
-  // Handle page change
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
-      setExpandedIndex(null); // Reset expanded index on page change
+      setExpandedIndex(null);
     }
   };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      setExpandedIndex(null); // Reset expanded index on page change
+      setExpandedIndex(null);
     }
   };
 
-  // Handle image click to scale
   const handleImageClick = (id) => {
     setExpandedImageId(expandedImageId === id ? null : id);
   };
@@ -73,9 +67,12 @@ const Coding = () => {
       {error && <p className='text-center text-red-500'>{`Error: ${error}`}</p>}
       {!loading && !error && (
         <>
-          <div className='flex flex-wrap gap-4 mt-14'>
+          <div className='flex flex-wrap gap-4 mt-14 justify-center'>
             {currentItems.map((item, index) => (
-              <div key={item._id} className="border-b mb-4 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-4 bg-white rounded shadow">
+              <div
+                key={item._id}
+                className="border-b mb-4 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-4 bg-white rounded shadow"
+              >
                 <h2
                   className="text-lg cursor-pointer mb-2"
                   onClick={() => toggleAccordion(index)}
@@ -88,7 +85,7 @@ const Coding = () => {
                       <img
                         src={`data:image/jpeg;base64,${item.image}`}
                         alt={`Answer to ${item.Question}`}
-                        className={`w-full h-auto mt-4 transition-transform duration-200 ease-in-out ${expandedImageId === item._id ? 'scale-110' : 'scale-100'}`}
+                        className={`w-full h-auto mt-4 transition-transform duration-200 ease-in-out ${expandedImageId === item._id ? 'scale-110' : 'scale-100'} md:max-w-lg lg:max-w-xl xl:max-w-2xl`}
                         onClick={() => handleImageClick(item._id)}
                       />
                     )}
@@ -99,16 +96,16 @@ const Coding = () => {
           </div>
 
           {/* Pagination Controls */}
-          <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 mb-4 flex gap-5">
+          <div className="relative mt-8">
             <button
-              className={`px-4 py-2 bg-blue-500 text-white rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`absolute left-0 px-4 py-2 bg-black text-white rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handlePrevPage}
               disabled={currentPage === 1}
             >
               Previous
             </button>
             <button
-              className={`px-4 py-2 bg-blue-500 text-white rounded ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`absolute right-0 px-4 py-2 bg-green-500 text-white rounded ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
             >
