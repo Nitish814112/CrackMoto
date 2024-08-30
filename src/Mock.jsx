@@ -84,8 +84,8 @@ const Mock = () => {
             ))}
           </div>
 
-          {/* Pagination Controls */}
-          <div className='flex justify-between mt-4'>
+          {/* Fixed Pagination Controls */}
+          <div className='fixed bottom-4 left-4'>
             <button
               className={`px-4 py-2 bg-black text-white rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handlePrevPage}
@@ -93,6 +93,8 @@ const Mock = () => {
             >
               Previous
             </button>
+          </div>
+          <div className='fixed bottom-4 right-4'>
             <button
               className={`px-4 py-2 bg-green-500 text-white rounded ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handleNextPage}

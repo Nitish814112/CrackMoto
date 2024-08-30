@@ -95,17 +95,19 @@ const Coding = () => {
             ))}
           </div>
 
-          {/* Pagination Controls */}
-          <div className="relative mt-8">
+          {/* Fixed Pagination Controls */}
+          <div className="fixed bottom-4 left-4">
             <button
-              className={`absolute left-0 px-4 py-2 bg-black text-white rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`px-4 py-2 bg-black text-white rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handlePrevPage}
               disabled={currentPage === 1}
             >
               Previous
             </button>
+          </div>
+          <div className="fixed bottom-4 right-4">
             <button
-              className={`absolute right-0 px-4 py-2 bg-green-500 text-white rounded ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`px-4 py-2 bg-green-500 text-white rounded ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
             >
