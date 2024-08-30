@@ -65,17 +65,17 @@ const Coding = () => {
   return (
     <div className='container mx-auto mt-10 p-4'>
       {loading && (
-        <p className='text-center font-bold text-gray-500 flex items-center justify-center mt-24'>
+        <div className='text-center font-bold text-gray-500 flex items-center justify-center mt-24'>
           Loading...
           <div className='border-8 border-gray-200 border-t-blue-500 rounded-full w-12 h-12 animate-spin ml-2'></div>
-        </p>
+        </div>
       )}
       {error && <p className='text-center text-red-500'>{`Error: ${error}`}</p>}
       {!loading && !error && (
         <>
           <div className='flex flex-wrap gap-4 mt-14'>
             {currentItems.map((item, index) => (
-              <div key={item._id} className="border-b mb-4">
+              <div key={item._id} className="border-b mb-4 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-4 bg-white rounded shadow">
                 <h2
                   className="text-lg cursor-pointer mb-2"
                   onClick={() => toggleAccordion(index)}
@@ -88,7 +88,7 @@ const Coding = () => {
                       <img
                         src={`data:image/jpeg;base64,${item.image}`}
                         alt={`Answer to ${item.Question}`}
-                        className={`w-full h-auto mt-4  transition-transform duration-200 ease-in-out ${expandedImageId === item._id ? 'scale-110' : 'scale-100'}`}
+                        className={`w-full h-auto mt-4 transition-transform duration-200 ease-in-out ${expandedImageId === item._id ? 'scale-110' : 'scale-100'}`}
                         onClick={() => handleImageClick(item._id)}
                       />
                     )}
