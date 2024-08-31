@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 
-const socket = io('http://localhost:3000');
+const socket = io('https://server2-ten-umber.vercel.app');
 
 function Chat() {
   const [messages, setMessages] = useState([]);
@@ -22,7 +22,7 @@ function Chat() {
 
   const sendMessage = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/send', { message });
+      const response = await axios.post('https://server2-ten-umber.vercel.app/send', { message });
       console.log('Server response:', response.data);
       setMessage('');
     } catch (error) {
@@ -32,7 +32,7 @@ function Chat() {
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/receive');
+      const response = await axios.get('https://server2-ten-umber.vercel.app/receive');
       console.log('Messages from server:', response.data);
       // Set messages if needed
     } catch (error) {
