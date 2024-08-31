@@ -1,18 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 
-const socket = io('https://server2-ten-umber.vercel.app');
+const socket = io('https://server2-ten-umber.vercel.app', {  // Ensure this matches your server URL
+  transports: ['websocket'],  // Prefer WebSocket transport
+  withCredentials: true
+});
 
 function Chat() {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // Listen for messages from the server
+    socket.on('connect', () => {
+      console.log('Connected to the server');
+    });
+
     socket.on('server message', (msg) => {
       console.log('Message received from server:', msg);
-      setMessages((prevMessages) => [...prevMessages, msg]);
+      setMessages(prevMessages => [...prevMessages, msg]);
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Disconnected from the server');
     });
 
     return () => {
@@ -22,8 +32,7 @@ function Chat() {
 
   const sendMessage = async () => {
     try {
-      const response = await axios.post('https://server2-ten-umber.vercel.app/send', { message });
-      console.log('Server response:', response.data);
+      await axios.post('https://server2-ten-umber.vercel.app/send', { message });
       setMessage('');
     } catch (error) {
       console.error('Error sending message:', error);
@@ -34,7 +43,6 @@ function Chat() {
     try {
       const response = await axios.get('https://server2-ten-umber.vercel.app/receive');
       console.log('Messages from server:', response.data);
-      // Set messages if needed
     } catch (error) {
       console.error('Error fetching messages:', error);
     }
@@ -46,14 +54,12 @@ function Chat() {
 
   return (
     <div>
-      <div>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button onClick={sendMessage}>Send</button>
-      </div>
+      <input
+        type="text"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      />
+      <button onClick={sendMessage}>Send</button>
       <div>
         {messages.map((msg, index) => (
           <div key={index}>{msg}</div>
