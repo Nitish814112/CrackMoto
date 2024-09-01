@@ -104,8 +104,8 @@ export const Bot = () => {
             onClick={openWebchat}
             style={{
               position: "fixed",
-              bottom: "10px",
-              right: "103px",  // Adjusted to avoid overlapping
+              bottom: "70px",
+              right: "10px",  // Adjusted to avoid overlapping
               zIndex: 1000,
             }}
           />
@@ -117,8 +117,8 @@ export const Bot = () => {
               width: "360px",   // Adjusted width
               height: "480px",  // Adjusted height
               position: "fixed",
-              bottom: "10px",
-              right: "103px",  // Adjusted to avoid overlapping
+              bottom: "70px",
+              right: "10px",  // Adjusted to avoid overlapping
               zIndex: 1000,
               overflow: "hidden",  // Prevents overflow
             }}
