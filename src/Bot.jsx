@@ -105,7 +105,7 @@ export const Bot = () => {
             style={{
               position: "fixed",
               bottom: "10px",
-              right: "120px",  // Adjusted to avoid overlapping
+              right: "103px",  // Adjusted to avoid overlapping
               zIndex: 1000,
             }}
           />
@@ -118,7 +118,7 @@ export const Bot = () => {
               height: "480px",  // Adjusted height
               position: "fixed",
               bottom: "10px",
-              right: "120px",  // Adjusted to avoid overlapping
+              right: "103px",  // Adjusted to avoid overlapping
               zIndex: 1000,
               overflow: "hidden",  // Prevents overflow
             }}
