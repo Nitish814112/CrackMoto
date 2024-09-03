@@ -1,20 +1,19 @@
+
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useFirebase } from './context/Firebase';
 
-const Navbar = () => {
-  // State to manage mobile menu visibility
+const Navbar = ({ user }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Refs for menu and toggle button
   const menuRef = useRef(null);
   const toggleButtonRef = useRef(null);
+  const navigate = useNavigate();
+  const firebase = useFirebase();
 
-  // Toggle mobile menu visibility
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Close the menu if clicking outside of it or the toggle button
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -33,6 +32,15 @@ const Navbar = () => {
     };
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await firebase.getAuth().signOut();
+      navigate('/login'); 
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   return (
     <nav className="bg-black p-4 fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center">
@@ -49,16 +57,22 @@ const Navbar = () => {
           </svg>
         </button>
 
-        {/* Menu Items for Desktop */}
+       
         <ul id="menu-desktop" className="hidden md:flex space-x-8">
           <li><Link to="/" className="text-white font-bold hover:underline">Mock_Questions</Link></li>
           <li><Link to="/coding" className="text-white font-bold hover:underline">Coding_Questions</Link></li>
           <li><span className="text-white font-bold cursor-not-allowed pointer-events-none">Projects</span></li>
           <li><span className="text-white font-bold cursor-not-allowed pointer-events-none">Contacts</span></li>
-          <li><Link to="/login" className="text-white font-bold hover:underline">Login</Link></li>
+          {user ? (
+            <>
+              <li className="text-white font-bold">Hello, {user.displayName || user.email}</li>
+              <li><button onClick={handleLogout} className="text-white font-bold hover:underline">Logout</button></li>
+            </>
+          ) : (
+            <li><Link to="/login" className="text-white font-bold hover:underline">Login</Link></li>
+          )}
         </ul>
 
-        {/* Menu Items for Mobile */}
         <ul
           id="menu-mobile"
           className={`mobile-menu absolute top-16 left-0 w-full bg-white flex flex-col space-y-4 p-4 ${isMenuOpen ? 'block' : 'hidden'}`}
@@ -68,7 +82,14 @@ const Navbar = () => {
           <li><Link to="/coding" className="text-black-300 font-bold hover:underline">Coding_Questions</Link></li>
           <li><span className="text-black-300 font-bold cursor-not-allowed pointer-events-none">Projects</span></li>
           <li><span className="text-black-300 font-bold cursor-not-allowed pointer-events-none">Contact</span></li>
-          <li><Link to="/login" className="text-black-300 font-bold hover:underline">Login</Link></li>
+          {user ? (
+            <>
+              <li className="text-black-300 font-bold">Hello, {user.displayName || user.email}</li>
+              <li><button onClick={handleLogout} className="text-black-300 font-bold hover:underline">Logout</button></li>
+            </>
+          ) : (
+            <li><Link to="/login" className="text-black-300 font-bold hover:underline">Login</Link></li>
+          )}
         </ul>
       </div>
     </nav>

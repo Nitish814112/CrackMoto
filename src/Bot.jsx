@@ -9,33 +9,29 @@ const { theme, style } = buildTheme({
 
 const config = {
   composerPlaceholder: "What would you like to know?",
-  botName: "Customer service",
+  botName: "Alexa",
   botAvatar: "https://picsum.photos/200/300",
   botDescription:
-    "Hi! 👋 Welcome to webchat, this is some description talking about what it is. This might be a bit longer when expanded.",
+    "Hi! 👋 Welcome to webchat",
   email: {
-    title: "randomEmail@boptress.com",
-    link: "mailto:randomEmail@boptress.com",
+    title: "n814112@gmail.com",
+    link: "mailto:n814112@gmail.com",
   },
   phone: {
-    title: "555-555-5555",
-    link: "tel:555-555-5555",
+    title: "88-606-69143",
+    link: "tel:+91-88-606-69143",
   },
-  website: {
-    title: "https://botpress.com",
-    link: "https://botpress.com",
-  },
+ 
   termsOfService: {
     title: "Terms of service",
-    link: "https://botpress.com/terms",
+    link: "N/A",
   },
   privacyPolicy: {
     title: "Privacy policy",
-    link: "https://botpress.com/privacy",
+    link: "NA",
   },
 };
 
-// Add your Client ID here ⬇️
 const clientId = "949799ed-fc75-470d-9fc5-f1a5a391b8c8";
 
 export const Bot = () => {
@@ -55,9 +51,9 @@ export const Bot = () => {
     const webchatElement = webchatRef.current;
     if (webchatElement) {
       let messageContainer = webchatElement.querySelector('.bpModalContainer'); 
-      console.log(messageContainer);// Adjust the selector if needed
+      console.log(messageContainer);
       if (messageContainer) {
-        messageContainer = " "; // Clears all chat messages
+        messageContainer = " "; 
       }
     }
   };
@@ -105,7 +101,7 @@ export const Bot = () => {
             style={{
               position: "fixed",
               bottom: "70px",
-              right: "10px",  // Adjusted to avoid overlapping
+              right: "10px",  
               zIndex: 1000,
             }}
           />
@@ -114,13 +110,13 @@ export const Bot = () => {
           <div
             ref={webchatRef}
             style={{
-              width: "360px",   // Adjusted width
-              height: "480px",  // Adjusted height
+              width: "360px",   
+              height: "480px",  
               position: "fixed",
               bottom: "70px",
-              right: "10px",  // Adjusted to avoid overlapping
+              right: "10px",  
               zIndex: 1000,
-              overflow: "hidden",  // Prevents overflow
+              overflow: "hidden",  
             }}
           >
             <Webchat />
