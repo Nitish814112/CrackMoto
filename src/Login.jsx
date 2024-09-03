@@ -95,6 +95,7 @@ const Login = () => {
           <input 
             type="email" 
             name="Email" 
+            autoFocus
             placeholder="Enter email..." 
             onChange={(e) => setEmail(e.target.value)} 
             value={email} 
@@ -120,6 +121,7 @@ const Login = () => {
         <button onClick={handleSignIn} className="bg-green-500 text-white py-2 px-4 rounded w-full mb-2" disabled={loading}>
           Sign-in
         </button>
+        <h6 className='mx-auto font-bold'>OR</h6>
         <button onClick={handleGoogleSignIn} className="bg-red-500 flex items-center justify-center gap-2 text-white py-2 px-4 rounded w-full mb-2" disabled={loading}>
           <Avatar className='shadow-lg' sx={{ bgcolor: 'white', color: 'red' }}>G</Avatar>
           Sign-in with Google
